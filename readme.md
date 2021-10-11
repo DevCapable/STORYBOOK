@@ -1,4 +1,4 @@
-#StoryBook
+## **StoryBook**
 
     # Install dependencies
     npm install
