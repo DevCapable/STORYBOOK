@@ -19,6 +19,7 @@ router.get('/dashboard', ensureAuth, async (req, res) => {
         res.render('dashboard',{
             name: req.user.displayName,
             image: req.user.image,
+            id: req.user.id,
             stories
         })
     }
