@@ -120,15 +120,25 @@ router.put('/:id', ensureAuth, async (req, res) => {
 
 // @desc    Delete Story
 // @route   DELETE /stories/:id
-router.delete('/', ensureAuth, async (req, res) => {
+router.delete('/:id', ensureAuth, async (req, res) => {
     try{
-        await Story.remove({_id: req.params.id})
-        res.redirect('/dashboard')
+        let story = await Story.findById({_id: req.params.id})
+        if (!story)
+        {
+            res.redirect('error/500')
+        }if (story.user != req.user.id) {
+            res.redirect('/stories')
+        }else{
+            await Story.remove({_id: req.params.id})
+            res.redirect('/dashboard')
+        }
+
     }catch(error){
         console.error(err)
         return res.render('error/500')
     }
 })
+
 // @desc    User stories
 // @route   GET /stories/user/:userId
 router.get('/user/:userId', ensureAuth, async (req, res) => {
