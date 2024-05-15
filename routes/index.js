@@ -5,10 +5,27 @@ const Story = require('../models/story')
 
 // @desc Login/Landing page
 // @route GET /
-router.get('/', ensureGuest, (req, res) => {
-    res.render('login', {
-        layout: 'login'
-    })
+router.get('/', ensureGuest, async (req, res) => {
+    // res.render('login', {
+    //     layout: 'login'
+    // })
+    console.log('YESSSSSSSSSSS')
+    try {
+        const stories = await Story.find({status: 'public'})
+            .populate('user')
+            .sort({createdAt: 'desc'})
+            .lean()
+        res.render('login', {
+            layout: 'login',
+            // name: req.user.displayName,
+            // image: req.user.image,
+            // id: req.stories.id,
+            stories,
+        })
+    } catch (err) {
+        console.log(err)
+        res.render('error/500')
+    }
 })
 
 // @desc Dashboard page

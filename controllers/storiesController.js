@@ -68,6 +68,31 @@ const show_single_story = async function(req, res){
 
 }
 
+
+// @desc    Show single story
+// @route   GET public /stories/:id
+const show_single_public_story = async function(req, res){
+    try {
+        const  story = await Story.findById(req.params.id)
+            .populate('user').lean()
+        if (!story)
+        {
+            res.render('error/404')
+        }
+        res.render('stories/public/show',{
+            // name: req.user.displayName,
+            // image: req.user.image,
+            // id: req.user.id,
+            story
+        })
+    }catch(err)
+    {
+        console.log(err)
+        res.render('error/404')
+    }
+
+}
+
 // @desc    Show edit page
 // @route   GET /stories/edit/:id
 const show_edit_page = async function(req, res){
@@ -171,6 +196,7 @@ const user_story = async function(req, res){
 
 module.exports = {
     show_add_stories_page,
+    show_single_public_story,
     process_add_form,
     show_all_stories,
     show_single_story,

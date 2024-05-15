@@ -1,10 +1,40 @@
-<h3><i class=" fas fa-book-reader">StoryBooks</i><h3>
+<h3 style="font-size: 50px;  text-align: center;">Design and Implementation of Online StoryBooks <i class=" fas fa-book-reader"></i> Blogs<h3>
+
     <div class="section">
-        <p class="lead"> Create public and private stories from your life</p>
+        <p style="color: black; font-size: 20px; padding-top: 15px;"> Create public and private stories from your life</p>
     </div>
     <div class="class divider"></div>
     <div class="section">
         <a href="/auth/google" class="btn red darken-1">
             <i class="fab fa-google left"></i>Login with google
         </a>
+        <p style="color: black; font-size: 18px; padding-top: 15px;"> Supervisor: Mrs. Giwa Aolat</p>
     </div>
+
+<h3> Stories</h3>
+<div class="row">
+    {{#each stories}}
+    <div class="col s12 m6 center">
+        <div class="card">
+{{!--             <div class="card-image"> --}}
+{{!--                 {{{editIcon user ../user _id}}} --}}
+{{!--             </div> --}}
+            <div class="card-content center-align">
+                <h5>{{title}}</h5>
+                <p>{{stripTags (truncate body 150)}}</p>
+                <br>
+                <div class="chip">
+                    <img src="{{user.image}}" alt="">
+                    <a href="/stories/user/{{user._id}}">{{user.displayName}}</a>
+                </div>
+            </div>
+            <div class="card-action center-align">
+                <a href="/stories/public/{{_id}}" class="btn grey">Read More</a>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <p>No stories to display</p>
+    {{/each}}
+
+</div>

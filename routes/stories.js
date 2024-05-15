@@ -19,6 +19,11 @@ router.get('/', ensureAuth, storiesController.show_all_stories)
 // @route   GET /stories/:id
 router.get('/:id', ensureAuth, storiesController.show_single_story)
 
+
+// @desc   Router to Show single story
+// @route   GET /stories/public/:id
+router.get('/public/:id', ensureGuest, storiesController.show_single_public_story)
+
 // @desc   Router to Show edit page
 // @route   GET /stories/edit/:id
 router.get('/edit/:id', ensureAuth, storiesController.show_edit_page)
